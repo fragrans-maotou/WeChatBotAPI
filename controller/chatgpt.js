@@ -1,6 +1,6 @@
 // import { BingChat } from 'bing-chat';
 import { HttpsProxyAgent } from "https-proxy-agent";
-import nodeFetch from "node-fetch";
+// import fetch from 'node-fetch';
 import request from "../utils/request.js";
 class ChatGPT {
   constructor() {
@@ -30,7 +30,7 @@ class ChatGPT {
     console.log("result", result.choices[0].message);
     try {
       if (result.choices) {
-        assistantMessage = result.choices[0].message?.content.replace(/^\n+|\n+$/g, "");
+        assistantMessage = result.choices[0].message && result.choices[0].message.content.replace(/^\n+|\n+$/g, "");
       } else {
         console.log(`Something went wrong,Code: ${result.status}, ${result.statusText}`);
       }
@@ -65,24 +65,26 @@ class ChatGPT {
     };
 
     // 发起请求
-    nodeFetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify(requestData),
-      agent: proxyAgent, // 设置代理对象
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // 处理响应数据
-        console.log(data);
-      })
-      .catch((error) => {
-        // 处理错误
-        console.error(error);
-      });
+    // fetch(apiUrl, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${apiKey}`,
+    //   },
+    //   body: JSON.stringify(requestData),
+    //   agent: proxyAgent, // 设置代理对象
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // 处理响应数据
+    //     console.log(data);
+    //   })
+    //   .catch((error) => {
+    //     // 处理错误
+    //     console.error(error);
+    //   });
+
+
     // const completion = await openai.createChatCompletion({
     //   model: "gpt-3.5-turbo",
     //   messages: [{ "role": "system", "content": "You are a helpful assistant." }, { role: "user", content: "Hello world" }],

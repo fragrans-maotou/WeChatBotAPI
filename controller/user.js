@@ -94,7 +94,7 @@ class User extends BaseComponent {
         message: '获取用户列表',
         result: userListString
       });
-    } catch {
+    } catch (err){
       console.log(err);
       res.send({
         code: 0,
