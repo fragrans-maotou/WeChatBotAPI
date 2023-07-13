@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "pm2 start index.js",
-    "delete": "pm2 delete index.js",
+    "delete": "pm2 delete index",
+    "zip_start": "pm2 start ./dist/bundle.js",
+    "zip_delete": "pm2 delete bundle",
     "log": "pm2 log",
     "build": "webpack"
   },
