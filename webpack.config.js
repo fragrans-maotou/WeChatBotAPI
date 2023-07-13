@@ -6,7 +6,7 @@ module.exports = {
   externals: [nodeExternals()],
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname),
     libraryTarget: 'commonjs2',
   },
   resolve: {
