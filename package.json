@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pm2 start index.js",
+    "dev": "nodemon index.js",
+    "start": "pm2 start index.js",
+    "delete": "pm2 delete index.js",
     "log": "pm2 log",
     "build": "webpack"
   },
@@ -24,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
+    "@babel/register": "^7.22.5",
     "babel-loader": "^9.1.3",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
