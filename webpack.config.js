@@ -1,9 +1,13 @@
 const nodeExternals = require('webpack-node-externals');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require("path");
+const webpack = require("webpack");
 module.exports = {
-  entry: './index.js',
+  entry: './src/index.js',
   target: 'node',
-  externals: [nodeExternals()],
+  externals: [
+    nodeExternals()
+  ],
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
@@ -23,6 +27,10 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
+        include: [
+          // 指定需要转译的模块路径或模块名称
+          /node_modules\/mongodb/,
+        ],
         use: {
           loader: 'babel-loader',
           options: {
@@ -32,5 +40,22 @@ module.exports = {
       },
     ],
   },
-  plugins: [],
+  // 提取第三方库依赖文件
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      register: "@babel/register",
+    }),
+    new CleanWebpackPlugin(),
+  ],
 };

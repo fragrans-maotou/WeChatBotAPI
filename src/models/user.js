@@ -15,13 +15,15 @@ const userSchema = new Schema({
   rank: Number,
   user_name: String,
   integral: Number,
+  sing_in_list: Array,
   create_time: String,
-  city:{
+  avatar: String,
+  city: {
     name: String,
     longitude: String,
     latitude: String
   },
-  wx_id:String
+  wx_id: String
 });
 
 userSchema.index({ id: 1 });

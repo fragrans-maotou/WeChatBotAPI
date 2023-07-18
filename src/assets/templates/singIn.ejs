@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>singin</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .layout {
+      box-sizing: border-box;
+      font-weight: bold;
+      padding: 70px 0;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .calendar {
+      margin-top: 20px;
+
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+
+    th {
+      color: #000000;
+      padding: 10px;
+      margin: 0 5px;
+      font-size: 14px;
+    }
+
+    th:first-child {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+
+    th:last-child {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    td {
+      padding: 10px;
+    }
+
+    .small_square {
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background-clip: padding-box;
+    }
+
+    .not_this_month {
+      color: #a3a0a0;
+    }
+
+    .today {
+      background-color: #ffcc00;
+    }
+
+    .checked_in {
+      background-color: #40c463;
+    }
+
+    .img_cover {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    #hitokoto {
+      display: inline-block;
+      font-size: 20px;
+      margin: 0 20px;
+      padding: 10px;
+    }
+
+    .name {
+      font-size: 20px;
+      margin-top: 8px;
+    }
+
+    .date {
+      margin-top: 8px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <img class="img_cover" src="https://source.unsplash.com/random/375x667" alt="">
+  <div class="layout">
+    <img class="avatar" src="../<%= avatar %>" alt="">
+    <p class="name">@<%= name %>
+    </p>
+    <p class="date">
+      <%= singinTime %>
+    </p>
+    <div class="calendar">
+      <table>
+        <thead>
+          <tr>
+            <th>日</th>
+            <th>一</th>
+            <th>二</th>
+            <th>三</th>
+            <th>四</th>
+            <th>五</th>
+            <th>六</th>
+          </tr>
+        </thead>
+        <tbody id="calendar-body">
+          <% for (let i=0; i < dateArray.length; i++) { %>
+            <tr>
+              <% for (let j=0; j < dateArray[i].length; j++) { %>
+                <% if (dateArray[i][j].type===-1) { %>
+                  <td class="small_square not_this_month">
+                    <%= dateArray[i][j].date %>
+                  </td>
+                  <% } else if (dateArray[i][j].type===0) { %>
+                    <td class="small_square">
+                      <%= dateArray[i][j].date %>
+                    </td>
+                    <% } else if (dateArray[i][j].type===1) { %>
+                      <td class="small_square checked_in">
+                        <%= dateArray[i][j].date %>
+                      </td>
+                      <% } %>
+                        <% } %>
+            </tr>
+            <% } %>
+        </tbody>
+      </table>
+    </div>
+    <p id="hitokoto">
+      <a href="#" id="hitokoto_text">:D 获取中...</a>
+    </p>
+  </div>
+  <!-- 本例不能添加链接内容，放在此处只是因为此接口比较方便，也许能够解决大部分的需求-->
+  <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto"></script>
+
+</body>
+
+</html>

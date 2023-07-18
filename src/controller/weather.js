@@ -5,23 +5,24 @@
  * @Description:
  */
 import request from "../utils/request.js";
+import configKey from "../config/config.js";
 
 class Weather {
   constructor() {
-    this.location = "120.151667,30.169379";
-    this.weatherkey = process.env.OPENWEATHER_API_KEY;
-    this.gaodekey = process.env.OPENGAODE_WEB_SERVICE_API_KEY; // 搞得web API 密钥
+    // this.location = "120.151667,30.169379";
+    // this.weatherkey = process.env.OPENWEATHER_API_KEY;
+    // this.gaodekey = process.env.OPENGAODE_WEB_SERVICE_API_KEY; // 搞得web API 密钥
     // this.weatherForecast = this.weatherForecast.bind(this);
   }
 
   async weatherForecast (req, res, next) {
-    let openweatherapi = "https://api.openweathermap.org/data/3.0/onecall";
+    let openWeatherApiUrl = "https://api.openweathermap.org/data/3.0/onecall";
     const { lat, lon } = req.query;
-    const weatherkey = process.env.OPENWEATHER_API_KEY;// 天气 API 密钥
+    const weatherkey = configKey.openWeatherApi;// 天气 API 密钥
 
     try {
       const response = await request({
-        url: openweatherapi,
+        url: openWeatherApiUrl,
         method: "get",
         params: {
           appid: weatherkey,
@@ -32,6 +33,7 @@ class Weather {
           lang: "zh_cn"
         }
       });
+      console.log(response);
       res.send({
         code: 200,
         result: response
@@ -47,10 +49,10 @@ class Weather {
 
   async latitudeAndLongitude (req, res, next) {
     const gaodeapi = "https://restapi.amap.com/v3/geocode/geo";
-    const gaodekey = process.env.OPENGAODE_WEB_SERVICE_API_KEY; // 搞得web API 密钥
+    const gaodekey = configKey.opengeodeWebService; // 搞得web API 密钥
     const { area } = req.query;
     try {
-
+      console.log("latitudeAndLongitude", area);
       let areaTrim = area.trim();
       const response = await request({
         url: gaodeapi,
